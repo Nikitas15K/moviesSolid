@@ -15,6 +15,9 @@ function Home() {
     if (!favorite) {
       setHeartClicked(id);
       const timer = setInterval(() => setNum((num() + 0.001) % 0.5), 10);
+    } else {
+      setHeartClicked(0);
+      setNum(0);
     }
   };
 
