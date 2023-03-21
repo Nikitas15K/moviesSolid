@@ -1,6 +1,12 @@
 function MovieCard(props) {
   return (
     <article className="card">
+      <p
+        className="heart_animation"
+        style={{ opacity: props.num, "font-size": "50px" }}
+      >
+        🤍
+      </p>
       <img
         src={"https://image.tmdb.org/t/p/w500/" + props.movie?.poster_path}
         alt="movie poster"

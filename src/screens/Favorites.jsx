@@ -26,6 +26,7 @@ function Favorites() {
               <MovieCard
                 movie={movie}
                 onClick={() => editIfFavorite(movie?.id)}
+                num={0}
               />
             );
           }}
