@@ -5,7 +5,7 @@ import { useMovies } from "../movieContext";
 
 function Favorites() {
   const navigate = useNavigate();
-  const [movieData, { movieDataFiltered}] = useMovies();
+  const [movieData, { movieDataFiltered, editIfFavorite }] = useMovies();
   return (
     <div>
       <Header
@@ -13,21 +13,22 @@ function Favorites() {
         searchTerm={searchTerm()}
         onClick={() => {
           navigate("../");
-          setSearchTerm('');
+          setSearchTerm("");
         }}
         onInput={(event) => {
-          setSearchTerm(event.target.value);}}
+          setSearchTerm(event.target.value);
+        }}
       />
       <div className="cardset">
-        <For each={movieDataFiltered(searchTerm(),true)}>
+        <For each={movieDataFiltered(searchTerm(), true)}>
           {(movie) => {
-             return(
+            return (
               <MovieCard
-              movie={movie}
-              onClick={() =>
-                editIfFavorite(movie?.id)}
-            />
-          )}}
+                movie={movie}
+                onClick={() => editIfFavorite(movie?.id)}
+              />
+            );
+          }}
         </For>
       </div>
     </div>
