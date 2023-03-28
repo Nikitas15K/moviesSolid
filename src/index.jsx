@@ -4,7 +4,7 @@ import { Router } from "@solidjs/router";
 
 import "./index.css";
 import App from "./App";
-import { MoviesProvider } from "./movieContext";
+import { MoviesProvider } from "./context/movieContext";
 
 const root = document.getElementById("root");
 
@@ -16,11 +16,9 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
 
 render(
   () => (
-    <MoviesProvider movieData={[]}>
-      <Router>
-        <App />
-      </Router>
-    </MoviesProvider>
+    <Router>
+      <App />
+    </Router>
   ),
   root
 );

@@ -100,7 +100,7 @@ header {
   color: #df641d;
 }
 
-h1 {
+h2 {
   font-size: 1rem;
 }
 
@@ -131,41 +131,18 @@ input {
   transform: translate(-20%, -20%);
 }
 
-.lds-ring {
-  display: inline-block;
-  position: relative;
+.notFound {
+  padding-top: 5vh;
+  height: 25vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+  align-items: center;
 }
-.lds-ring div {
-  box-sizing: border-box;
-  display: block;
-  position: fixed;
-  top: 30%;
-  left: 40%;
-  -webkit-transform: translate(-40%, -40%);
-  transform: translate(-40%, -40%);
-  width: 20vw;
-  height: 20vw;
-  border: 8px solid #fff;
-  border-radius: 50%;
-  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #fff transparent transparent transparent;
-}
-.lds-ring div:nth-child(1) {
-  animation-delay: -0.45s;
-}
-.lds-ring div:nth-child(2) {
-  animation-delay: -0.3s;
-}
-.lds-ring div:nth-child(3) {
-  animation-delay: -0.15s;
-}
-@keyframes lds-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+
+.notFound button {
+  width: 10rem;
 }
 
 @media screen and (width <= 700px) {

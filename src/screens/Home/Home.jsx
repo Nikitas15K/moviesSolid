@@ -1,12 +1,13 @@
 import { useNavigate } from "@solidjs/router";
 import { createSignal } from "solid-js";
-import { searchTerm, setSearchTerm } from "../App";
-import { Header, MovieCard } from "../components";
-import { useMovies } from "../movieContext";
+import { searchTerm, setSearchTerm } from "../../App";
+import { Header, MovieCard } from "../../components";
+import { useMovies } from "../../context/movieContext";
+import { movieDataFiltered } from "../../helpers/helpers";
 
 function Home() {
   const navigate = useNavigate();
-  const [movieData, { movieDataFiltered, editIfFavorite }] = useMovies();
+  const [movieData, { editIfFavorite }] = useMovies();
   const [heartClicked, setHeartClicked] = createSignal(0);
   const [num, setNum] = createSignal(0);
 
@@ -36,7 +37,7 @@ function Home() {
       />
 
       <div className="cardset">
-        <For each={movieDataFiltered(searchTerm())}>
+        <For each={movieDataFiltered(movieData, searchTerm())}>
           {(movie) => {
             return (
               <MovieCard

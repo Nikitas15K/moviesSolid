@@ -1,5 +1,5 @@
 import { A } from "@solidjs/router";
-import tmdbLogo from "../assets/images/tmdb.svg";
+import tmdbLogo from "../../assets/images/tmdb.svg";
 
 function Footer() {
   return (

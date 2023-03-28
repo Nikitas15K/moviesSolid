@@ -2,7 +2,7 @@ function Header(props) {
   let placeholder = `Search ${props.placeholderSearch}`;
   return (
     <header>
-      <h1>P3 Movie Page</h1>
+      <h2>P3 Movie Page</h2>
       <div>
         <Show
           when={props.placeholderSearch !== "all movies"}

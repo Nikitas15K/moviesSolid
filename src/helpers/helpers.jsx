@@ -11,7 +11,6 @@ export const editIfMovieIsFavoriteInLocalStorage = (id) => {
   try {
     let favoriteMovies = getFavoriteMoviesFromLocalStorage();
     if (!favoriteMovies || favoriteMovies?.length === 0) {
-      console.log(favoriteMovies);
       localStorage.setItem("favoriteMovies", id?.toString());
     } else {
       if (favoriteMovies?.includes(id)) {
@@ -27,4 +26,17 @@ export const editIfMovieIsFavoriteInLocalStorage = (id) => {
   } catch (e) {
     console.log(e);
   }
+};
+
+export const movieDataFiltered = (
+  movieData,
+  searchTerm,
+  onlyFavorites = false
+) => {
+  return movieData?.filter((movie) =>
+    !onlyFavorites
+      ? movie?.title?.toLowerCase()?.includes(searchTerm?.toLowerCase())
+      : movie?.title?.toLowerCase()?.includes(searchTerm?.toLowerCase()) &&
+        movie?.isFavorite
+  );
 };

@@ -1,11 +1,13 @@
 import { useNavigate } from "@solidjs/router";
-import { searchTerm, setSearchTerm } from "../App";
-import { Header, MovieCard } from "../components";
-import { useMovies } from "../movieContext";
+import { searchTerm, setSearchTerm } from "../../App";
+import { Header, MovieCard } from "../../components";
+import { useMovies } from "../../context/movieContext";
+import { movieDataFiltered } from "../../helpers/helpers";
 
 function Favorites() {
   const navigate = useNavigate();
-  const [movieData, { movieDataFiltered, editIfFavorite }] = useMovies();
+  const [movieData, { editIfFavorite }] = useMovies();
+
   return (
     <div>
       <Header
@@ -20,7 +22,7 @@ function Favorites() {
         }}
       />
       <div className="cardset">
-        <For each={movieDataFiltered(searchTerm(), true)}>
+        <For each={movieDataFiltered(movieData, searchTerm(), true)}>
           {(movie) => {
             return (
               <MovieCard

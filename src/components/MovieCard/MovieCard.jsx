@@ -18,7 +18,7 @@ function MovieCard(props) {
         <p className="text">{props.movie?.overview}</p>
       </div>
       <button className="heart" onClick={props.onClick}>
-        {props.movie?.favorite ? <>💝</> : <>🤍</>}
+        {props.movie?.isFavorite ? <>💝</> : <>🤍</>}
       </button>
     </article>
   );
