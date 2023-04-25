@@ -1,4 +1,3 @@
-import { useNavigate } from "@solidjs/router";
 import { createSignal } from "solid-js";
 import { searchTerm, setSearchTerm } from "../../App";
 import { Header, MovieCard } from "../../components";
@@ -6,8 +5,8 @@ import { useMovies } from "../../context/movieContext";
 import { movieDataFiltered } from "../../helpers/helpers";
 
 function Home() {
-  const navigate = useNavigate();
-  const [movieData, { editIfFavorite }] = useMovies();
+  const [movies] = useMovies();
+  const [movieData, { editIfFavorite }] = movies;
   const [heartClicked, setHeartClicked] = createSignal(0);
   const [num, setNum] = createSignal(0);
 
@@ -27,10 +26,6 @@ function Home() {
       <Header
         placeholderSearch="all movies"
         searchTerm={searchTerm()}
-        onClick={() => {
-          navigate("/favorites");
-          setSearchTerm("");
-        }}
         onInput={(event) => {
           setSearchTerm(event.target.value);
         }}

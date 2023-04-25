@@ -1,26 +1,28 @@
 import { Route, Routes } from "@solidjs/router";
 import { createResource, createSignal, onMount } from "solid-js";
 import { useMovies } from "../../context/movieContext";
-import { Favorites, Home } from "../../screens";
+import { Actor, Favorites, Home } from "../../screens";
 
 function BasicRoutes() {
-  const [movieData, { addMovie }] = useMovies();
+  const [movies] = useMovies();
+  const [movieData, { addMovie }] = movies;
+
   const [pageId, setPageId] = createSignal(1);
   const [movieResult, { refetch }] = createResource(pageId, fetchMovies);
 
   async function fetchMovies(pageId) {
     const queryURL =
       import.meta.env.VITE_APP_API_BASE_URL +
-      "?api_key=" +
+      "top_rated?api_key=" +
       import.meta.env.VITE_APP_TMDB_API_KEY +
       "&page=" +
       pageId;
-    const result = await fetch(queryURL);
-    if (!result.ok) {
-      throw new Error("Error " + result.status);
-    }
-    const { results } = await result?.json();
-    results?.forEach((movie) => {
+    const result = await fetch(queryURL)
+      .then((result) => {
+        return result?.json();
+      })
+      .catch((error) => {});
+    result?.results?.forEach((movie) => {
       addMovie(movie);
     });
   }
@@ -37,9 +39,10 @@ function BasicRoutes() {
   });
 
   return (
-    <Show when={!movieResult?.error} fallback={<div>{data.error.message}</div>}>
-      <Route path="/" component={<Home />} />
-      <Route path="/favorites" component={<Favorites />} />
+    <Show when={!movieResult?.error} fallback={movieResult?.error}>
+      <Route path="/" end element={<Home />} />
+      <Route path="/favorites" end element={<Favorites />} />
+      <Route path="/actor" end element={<Actor />} />
     </Show>
   );
 }

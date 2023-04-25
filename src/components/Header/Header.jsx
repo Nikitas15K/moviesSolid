@@ -1,3 +1,5 @@
+import { A } from "@solidjs/router";
+
 function Header(props) {
   let placeholder = `Search ${props.placeholderSearch}`;
   return (
@@ -7,14 +9,30 @@ function Header(props) {
         <Show
           when={props.placeholderSearch !== "all movies"}
           fallback={
-            <button className="linkTo" onClick={props.onClick}>
-              Favorites
-            </button>
+            <>
+              <A className="linkTo" href="/favorites">
+                Favorites
+              </A>
+            </>
           }
         >
-          <button className="linkTo" onClick={props.onClick}>
+          <A className="linkTo" href="/">
             Home
-          </button>
+          </A>
+        </Show>
+        <Show
+          when={props.placeholderSearch !== "actors"}
+          fallback={
+            <>
+              <A className="linkTo" href="/favorites">
+                Favorites
+              </A>
+            </>
+          }
+        >
+          <A className="linkTo" href="/actor">
+            Actors
+          </A>
         </Show>
 
         <input

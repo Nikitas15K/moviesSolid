@@ -1,14 +1,22 @@
 import { createContext, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
 import {
+  checkIfMovieArrayHasFavoriteMovies,
   editIfMovieIsFavoriteInLocalStorage,
   getFavoriteMoviesFromLocalStorage,
 } from "../helpers/helpers";
+import myMovies from "../plain_data.json";
 
-export const MoviesContext = createContext([], () => {});
+const initialState = {
+  movieData: checkIfMovieArrayHasFavoriteMovies(myMovies),
+};
+
+const MoviesContext = createContext([]);
 
 export function MoviesProvider(props) {
-  const [movieData, setMovieData] = createStore(props.movieData || []);
+  const [movieData, setMovieData] = createStore(
+    props.movieData || initialState.movieData
+  );
   const movies = [
     movieData,
     {
@@ -40,9 +48,31 @@ export function MoviesProvider(props) {
       },
     },
   ];
-
+  const [actorData, setActorData] = createStore([]);
+  const actors = [
+    actorData,
+    {
+      addActor(actor) {
+        setActorData([
+          ...actorData,
+          {
+            id: actor.id,
+            name: actor.name,
+            isFavorite: true,
+          },
+        ]);
+      },
+      editIfFavorite(id) {
+        setActorData(
+          (actor) => actor?.id === id,
+          "isFavorite",
+          (isFavorite) => !isFavorite
+        );
+      },
+    },
+  ];
   return (
-    <MoviesContext.Provider value={movies}>
+    <MoviesContext.Provider value={[movies, actors]}>
       {props.children}
     </MoviesContext.Provider>
   );

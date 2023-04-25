@@ -1,22 +1,17 @@
-import { useNavigate } from "@solidjs/router";
 import { searchTerm, setSearchTerm } from "../../App";
 import { Header, MovieCard } from "../../components";
 import { useMovies } from "../../context/movieContext";
 import { movieDataFiltered } from "../../helpers/helpers";
 
 function Favorites() {
-  const navigate = useNavigate();
-  const [movieData, { editIfFavorite }] = useMovies();
+  const [movies] = useMovies();
+  const [movieData, { editIfFavorite }] = movies;
 
   return (
     <div>
       <Header
         placeholderSearch="favorites"
         searchTerm={searchTerm()}
-        onClick={() => {
-          navigate("../");
-          setSearchTerm("");
-        }}
         onInput={(event) => {
           setSearchTerm(event.target.value);
         }}

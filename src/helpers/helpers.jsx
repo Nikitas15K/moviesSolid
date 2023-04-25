@@ -1,10 +1,12 @@
 export const getFavoriteMoviesFromLocalStorage = () => {
-  return localStorage
-    .getItem("favoriteMovies")
-    ?.split(",")
-    ?.map((str) => {
-      return parseInt(str);
-    });
+  return (
+    localStorage
+      .getItem("favoriteMovies")
+      ?.split(",")
+      ?.map((str) => {
+        return parseInt(str);
+      }) || []
+  );
 };
 
 export const editIfMovieIsFavoriteInLocalStorage = (id) => {
@@ -39,4 +41,16 @@ export const movieDataFiltered = (
       : movie?.title?.toLowerCase()?.includes(searchTerm?.toLowerCase()) &&
         movie?.isFavorite
   );
+};
+
+export const checkIfMovieArrayHasFavoriteMovies = (movieArray) => {
+  let updatedFavorites = movieArray?.map((movie) => {
+    if (getFavoriteMoviesFromLocalStorage()?.includes(movie?.id)) {
+      movie.isFavorite = true;
+    } else {
+      movie.isFavorite = false;
+    }
+    return movie;
+  });
+  return updatedFavorites || [];
 };
